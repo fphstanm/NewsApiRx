@@ -10,7 +10,9 @@ import RxSwift
 import RxCocoa
 
 final class ArticlesViewController: UIViewController {
+    
     @IBOutlet private weak var articlesTableView: UITableView!
+    @IBOutlet private weak var filtersNavigationButton: UIBarButtonItem!
         
     private let disposeBag = DisposeBag()
     
@@ -20,14 +22,12 @@ final class ArticlesViewController: UIViewController {
         
     private let viewModel = ArticlesViewModel()
     
-    
+    //country: String?, category: String?, sources: [String]?
     // MARK: - lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = "Top headlines"
-        
+                
         setupSubviews()
         setupObservers()
         setupRefreshControl()
@@ -54,6 +54,12 @@ final class ArticlesViewController: UIViewController {
                 return cell
             }.disposed(by: disposeBag)
         
+        filtersNavigationButton
+            .rx
+            .tap
+            .subscribe(onNext: { [weak self] in
+                
+            }).disposed(by: disposeBag)
         
 //        refreshControl
 //            .rx.controlEvent(UIControlEvents.valueChanged)
@@ -63,15 +69,17 @@ final class ArticlesViewController: UIViewController {
 //            .disposed(by: disposeBag)
     }
     
+    // MARK: show methods
+    
     // TODO: make refresher rx way
-    //MARK: - RefreshControl
-    func setupRefreshControl() {
+    // MARK: RefreshControl
+    private func setupRefreshControl() {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         articlesTableView.refreshControl = refreshControl
     }
     
-    @objc func refreshData(_ sender: UIRefreshControl) {
+    @objc private func refreshData(_ sender: UIRefreshControl) {
         viewModel.handleRefreshArticles() {
             sender.endRefreshing()
         }

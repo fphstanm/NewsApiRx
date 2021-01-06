@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Articles View Controller-->
+        <!--Top headlines-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ArticlesViewController" customModule="NewsApi" customModuleProvider="target" sceneMemberID="viewController">
@@ -31,9 +31,12 @@
                             <constraint firstItem="QUR-9g-SuW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ql2-l9-LtW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="elH-63-iUZ"/>
+                    <navigationItem key="navigationItem" title="Top headlines" id="HYo-me-xxK">
+                        <barButtonItem key="rightBarButtonItem" title="wer" image="camera.filters" catalog="system" id="9P4-6d-bb7"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="articlesTableView" destination="QUR-9g-SuW" id="RBj-bO-Gy4"/>
+                        <outlet property="filtersNavigationButton" destination="9P4-6d-bb7" id="Jc6-r9-fre"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -60,6 +63,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera.filters" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
