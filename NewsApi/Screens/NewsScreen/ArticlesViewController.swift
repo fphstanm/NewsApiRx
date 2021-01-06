@@ -10,11 +10,13 @@ import RxSwift
 import RxCocoa
 
 final class ArticlesViewController: UIViewController {
-    @IBOutlet private weak var newsTableView: UITableView!
+    @IBOutlet private weak var articlesTableView: UITableView!
         
     private let disposeBag = DisposeBag()
     
     private let articleCellID = String(describing: ArticleCell.self)
+    
+    private lazy var refreshControl = UIRefreshControl()
         
     private let viewModel = ArticlesViewModel()
     
@@ -28,6 +30,7 @@ final class ArticlesViewController: UIViewController {
         
         setupSubviews()
         setupObservers()
+        setupRefreshControl()
         
         viewModel.handleViewDidLoad()
     }
@@ -35,13 +38,13 @@ final class ArticlesViewController: UIViewController {
     // MARK: - setup
     
     private func setupSubviews() {
-        newsTableView.register(UINib(nibName: articleCellID, bundle: nil), forCellReuseIdentifier: articleCellID)
+        articlesTableView.register(UINib(nibName: articleCellID, bundle: nil), forCellReuseIdentifier: articleCellID)
     }
     
     private func setupObservers() {
         viewModel.articles
             .asObservable()
-            .bind(to: newsTableView.rx.items) {
+            .bind(to: articlesTableView.rx.items) {
                 tableView, row, article in
                 
                 // TODO: Replace it with reactive technic
@@ -50,6 +53,27 @@ final class ArticlesViewController: UIViewController {
 
                 return cell
             }.disposed(by: disposeBag)
+        
+        
+//        refreshControl
+//            .rx.controlEvent(UIControlEvents.valueChanged)
+//            .subscribe(onNext: { [weak self] in
+//                self?.refreshControl.endRefreshing()
+//            }, onCompleted: nil, onDisposed: nil)
+//            .disposed(by: disposeBag)
     }
     
+    // TODO: make refresher rx way
+    //MARK: - RefreshControl
+    func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        articlesTableView.refreshControl = refreshControl
+    }
+    
+    @objc func refreshData(_ sender: UIRefreshControl) {
+        viewModel.handleRefreshArticles() {
+            sender.endRefreshing()
+        }
+    }
 }

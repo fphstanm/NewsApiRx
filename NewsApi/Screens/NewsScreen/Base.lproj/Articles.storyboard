@@ -33,7 +33,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="elH-63-iUZ"/>
                     <connections>
-                        <outlet property="newsTableView" destination="QUR-9g-SuW" id="RBj-bO-Gy4"/>
+                        <outlet property="articlesTableView" destination="QUR-9g-SuW" id="RBj-bO-Gy4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

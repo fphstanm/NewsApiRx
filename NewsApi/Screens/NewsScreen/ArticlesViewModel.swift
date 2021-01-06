@@ -15,23 +15,30 @@ final class ArticlesViewModel {
 
     let articles = PublishRelay<[Article]>()
     
-    
     // MARK: Handlers
     
     func handleViewDidLoad() {
         getNews()
     }
     
+    func handleRefreshArticles(completion: @escaping (() -> ())) {
+        getNews() {
+            completion()
+        }
+    }
+    
     // MARK: Network
     
-    private func getNews() {
+    private func getNews(completion: @escaping (() -> ()) = {}) {
         ApiClient.getTopHeadlines(country: "ua")
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] news in
                 guard let articles = news.articles else { return }
                 self?.articles.accept(articles)
+                completion()
             }, onError: { error in
                 print("Error: ", error)
+                completion()
             })
             .disposed(by: disposeBag)
     }
