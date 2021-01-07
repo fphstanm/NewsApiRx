@@ -9,12 +9,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class ArticlesViewController: UIViewController {
+final class ArticlesViewController: BaseViewController {
     
     @IBOutlet private weak var articlesTableView: UITableView!
     @IBOutlet private weak var filtersNavigationButton: UIBarButtonItem!
-        
-    private let disposeBag = DisposeBag()
     
     private let articleCellID = String(describing: ArticleCell.self)
     
@@ -22,7 +20,7 @@ final class ArticlesViewController: UIViewController {
         
     private let viewModel = ArticlesViewModel()
     
-    //country: String?, category: String?, sources: [String]?
+
     // MARK: - lifecycle
     
     override func viewDidLoad() {
@@ -39,6 +37,7 @@ final class ArticlesViewController: UIViewController {
     
     private func setupSubviews() {
         articlesTableView.register(UINib(nibName: articleCellID, bundle: nil), forCellReuseIdentifier: articleCellID)
+        articlesTableView.tableFooterView = UIView()
     }
     
     private func setupObservers() {
@@ -58,7 +57,7 @@ final class ArticlesViewController: UIViewController {
             .rx
             .tap
             .subscribe(onNext: { [weak self] in
-                
+                self?.showFilters()
             }).disposed(by: disposeBag)
         
 //        refreshControl
@@ -68,8 +67,6 @@ final class ArticlesViewController: UIViewController {
 //            }, onCompleted: nil, onDisposed: nil)
 //            .disposed(by: disposeBag)
     }
-    
-    // MARK: show methods
     
     // TODO: make refresher rx way
     // MARK: RefreshControl
@@ -83,5 +80,12 @@ final class ArticlesViewController: UIViewController {
         viewModel.handleRefreshArticles() {
             sender.endRefreshing()
         }
+    }
+    
+    // MARK: navigation
+    
+    private func showFilters() {
+        guard let filtersVC = initControllerFromStoryboard(of: FiltersViewController.self) as? FiltersViewController else { return }
+        navigationController?.pushViewController(filtersVC, animated: true)
     }
 }

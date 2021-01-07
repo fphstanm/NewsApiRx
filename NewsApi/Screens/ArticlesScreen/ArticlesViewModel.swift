@@ -9,11 +9,10 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class ArticlesViewModel {
-    
-    private let disposeBag = DisposeBag()
+final class ArticlesViewModel: BaseViewModel {
 
     let articles = PublishRelay<[Article]>()
+
     
     // MARK: Handlers
     
