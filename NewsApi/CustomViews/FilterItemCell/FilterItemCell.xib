@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterItemCell" id="KGk-i7-Jjw" customClass="FilterItemCell" customModule="NewsApi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTJ-tl-x06">
+                        <rect key="frame" x="10" y="12" width="43" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="powersleep" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3Mf-qc-1Hn">
+                        <rect key="frame" x="292" y="14" width="18" height="16.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="BQs-ji-8rm"/>
+                            <constraint firstAttribute="height" constant="18" id="D5v-Kh-JEg"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="ZTJ-tl-x06" secondAttribute="bottom" constant="12" id="1Qd-uT-R61"/>
+                    <constraint firstItem="ZTJ-tl-x06" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="8vz-aY-L4X"/>
+                    <constraint firstItem="ZTJ-tl-x06" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Ebz-mu-Z9g"/>
+                    <constraint firstAttribute="trailing" secondItem="3Mf-qc-1Hn" secondAttribute="trailing" constant="10" id="yPN-fN-Vzp"/>
+                    <constraint firstItem="3Mf-qc-1Hn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="z3p-i9-vig"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="name" destination="ZTJ-tl-x06" id="vhy-p2-VKO"/>
+                <outlet property="selectedStateImage" destination="3Mf-qc-1Hn" id="TsD-Vu-gUi"/>
+            </connections>
+            <point key="canvasLocation" x="140.57971014492756" y="75"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="powersleep" catalog="system" width="128" height="128"/>
+    </resources>
+</document>

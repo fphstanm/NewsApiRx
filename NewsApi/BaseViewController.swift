@@ -14,4 +14,8 @@ class BaseViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
 }

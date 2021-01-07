@@ -11,38 +11,52 @@ import RxCocoa
 
 struct ArticlesFilter {
     let name: String
+    let type: ArticlesFilterType
     let selectedOption: String?
     let defaultOption: String
-    let options: [String]
+    let options: [ArticlesFilterOption]
     let isActive: Bool
+}
+
+struct ArticlesFilterOption {
+    let name: String
+    let id: String
+    var isSelected: Bool
+}
+
+enum ArticlesFilterType {
+    case country
+    case category
+    case sources
 }
 
 final class FiltersViewModel {
     
-    let filters = PublishRelay<[ArticlesFilter]>()
-
-//    let filtersObs = Observable<[ArticlesFilter]>()
+    // TODO: Replace publishReley
+    let filters = BehaviorRelay<[ArticlesFilter]>(value: [])
     
-    init() {
-
-    }
     
     func handleViewDidLoad() {
         let filters = [
             ArticlesFilter(name: "Coutry",
+                           type: .country,
                            selectedOption: nil,
                            defaultOption: "Select country",
-                           options: ["us", "ua"],
+                           options: [ArticlesFilterOption(name: "Ukraine", id: "ua", isSelected: false),
+                                     ArticlesFilterOption(name: "USA", id: "us", isSelected: false)],
                            isActive: false),
             ArticlesFilter(name: "Category",
+                           type: .category,
                            selectedOption: nil,
                            defaultOption: "Select category",
-                           options: ["business", "sport"],
+                           options: [ArticlesFilterOption(name: "Business", id: "business", isSelected: false),
+                                     ArticlesFilterOption(name: "Sport", id: "sport", isSelected: false)],
                            isActive: false),
             ArticlesFilter(name: "Sources",
+                           type: .sources,
                            selectedOption: nil,
                            defaultOption: "Select sources",
-                           options: [""],
+                           options: [ArticlesFilterOption(name: "Source", id: "sourceID", isSelected: false)],
                            isActive: false)
         ]
         

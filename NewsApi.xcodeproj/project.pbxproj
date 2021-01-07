@@ -15,6 +15,10 @@
 		17328D0525A6F48600952EA2 /* FilterCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17328D0325A6F48600952EA2 /* FilterCommonCell.swift */; };
 		17328D0625A6F48600952EA2 /* FilterCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17328D0425A6F48600952EA2 /* FilterCommonCell.xib */; };
 		17328D0E25A6FB5C00952EA2 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17328D0D25A6FB5C00952EA2 /* UIViewController.swift */; };
+		17328D1725A7082300952EA2 /* FilterOptionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17328D1625A7082300952EA2 /* FilterOptionsViewController.storyboard */; };
+		17328D1A25A7083100952EA2 /* FilterOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17328D1925A7083100952EA2 /* FilterOptionsViewController.swift */; };
+		17328D1F25A7213800952EA2 /* FilterItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17328D1D25A7213800952EA2 /* FilterItemCell.swift */; };
+		17328D2025A7213800952EA2 /* FilterItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17328D1E25A7213800952EA2 /* FilterItemCell.xib */; };
 		17842AAF25A6269800D47B1D /* SourcesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17842AAE25A6269800D47B1D /* SourcesModel.swift */; };
 		17842AB925A6449400D47B1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17842AB825A6449400D47B1D /* SceneDelegate.swift */; };
 		17842AC025A646EF00D47B1D /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17842ABE25A646EF00D47B1D /* ArticleCell.swift */; };
@@ -43,6 +47,10 @@
 		17328D0325A6F48600952EA2 /* FilterCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCommonCell.swift; sourceTree = "<group>"; };
 		17328D0425A6F48600952EA2 /* FilterCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCommonCell.xib; sourceTree = "<group>"; };
 		17328D0D25A6FB5C00952EA2 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		17328D1625A7082300952EA2 /* FilterOptionsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FilterOptionsViewController.storyboard; sourceTree = "<group>"; };
+		17328D1925A7083100952EA2 /* FilterOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionsViewController.swift; sourceTree = "<group>"; };
+		17328D1D25A7213800952EA2 /* FilterItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterItemCell.swift; sourceTree = "<group>"; };
+		17328D1E25A7213800952EA2 /* FilterItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterItemCell.xib; sourceTree = "<group>"; };
 		17842AAE25A6269800D47B1D /* SourcesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesModel.swift; sourceTree = "<group>"; };
 		17842AB825A6449400D47B1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		17842ABE25A646EF00D47B1D /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
@@ -90,6 +98,7 @@
 		172E914725A36C5C0038D332 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				17328D1C25A7211900952EA2 /* FilterItemCell */,
 				17328CFD25A6F44100952EA2 /* FilterCommonCell */,
 				172E914625A36C4C0038D332 /* ArticleCell */,
 			);
@@ -111,6 +120,7 @@
 			children = (
 				172E915525A3A3A60038D332 /* ArticlesScreen */,
 				17842ADA25A6672800D47B1D /* FiltersScreen */,
+				17328D1525A707FF00952EA2 /* FilterOptions */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -122,6 +132,24 @@
 				17328D0425A6F48600952EA2 /* FilterCommonCell.xib */,
 			);
 			path = FilterCommonCell;
+			sourceTree = "<group>";
+		};
+		17328D1525A707FF00952EA2 /* FilterOptions */ = {
+			isa = PBXGroup;
+			children = (
+				17328D1925A7083100952EA2 /* FilterOptionsViewController.swift */,
+				17328D1625A7082300952EA2 /* FilterOptionsViewController.storyboard */,
+			);
+			path = FilterOptions;
+			sourceTree = "<group>";
+		};
+		17328D1C25A7211900952EA2 /* FilterItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				17328D1D25A7213800952EA2 /* FilterItemCell.swift */,
+				17328D1E25A7213800952EA2 /* FilterItemCell.xib */,
+			);
+			path = FilterItemCell;
 			sourceTree = "<group>";
 		};
 		17842AD025A6584300D47B1D /* Extensions */ = {
@@ -285,10 +313,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17328D2025A7213800952EA2 /* FilterItemCell.xib in Resources */,
 				179F101D25A33D0F0068F567 /* LaunchScreen.storyboard in Resources */,
 				179F101A25A33D0F0068F567 /* Assets.xcassets in Resources */,
 				17842AE325A6681900D47B1D /* FiltersViewController.storyboard in Resources */,
 				17328D0625A6F48600952EA2 /* FilterCommonCell.xib in Resources */,
+				17328D1725A7082300952EA2 /* FilterOptionsViewController.storyboard in Resources */,
 				17842AC125A646EF00D47B1D /* ArticleCell.xib in Resources */,
 				179F101825A33D0E0068F567 /* Articles.storyboard in Resources */,
 			);
@@ -351,6 +381,7 @@
 				17328CFA25A6F04500952EA2 /* BaseViewController.swift in Sources */,
 				17842AE625A6682400D47B1D /* FiltersViewController.swift in Sources */,
 				179F103325A342340068F567 /* APIRouter.swift in Sources */,
+				17328D1F25A7213800952EA2 /* FilterItemCell.swift in Sources */,
 				17328D0525A6F48600952EA2 /* FilterCommonCell.swift in Sources */,
 				17328CF425A6EFB800952EA2 /* FiltersViewModel.swift in Sources */,
 				179F103625A342570068F567 /* APIConstants.swift in Sources */,
@@ -358,6 +389,7 @@
 				172E915925A3A3FB0038D332 /* ArticlesViewModel.swift in Sources */,
 				17842AB925A6449400D47B1D /* SceneDelegate.swift in Sources */,
 				17842AC025A646EF00D47B1D /* ArticleCell.swift in Sources */,
+				17328D1A25A7083100952EA2 /* FilterOptionsViewController.swift in Sources */,
 				179F101125A33D0E0068F567 /* AppDelegate.swift in Sources */,
 				179F102F25A3420B0068F567 /* APIService.swift in Sources */,
 				179F104C25A348EE0068F567 /* APIError.swift in Sources */,

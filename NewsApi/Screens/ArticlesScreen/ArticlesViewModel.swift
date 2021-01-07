@@ -11,8 +11,8 @@ import RxCocoa
 
 final class ArticlesViewModel: BaseViewModel {
 
-    let articles = PublishRelay<[Article]>()
-
+    // TODO: Replace publishReley
+    let articles = BehaviorRelay<[Article]>(value: [])
     
     // MARK: Handlers
     
