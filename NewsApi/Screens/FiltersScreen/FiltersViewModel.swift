@@ -24,10 +24,10 @@ struct ArticlesFilterOption {
     var isSelected: Bool
 }
 
-enum ArticlesFilterType {
-    case country
-    case category
-    case sources
+enum ArticlesFilterType: String {
+    case country = "country"
+    case category = "category"
+    case sources = "sources"
 }
 
 final class FiltersViewModel {
