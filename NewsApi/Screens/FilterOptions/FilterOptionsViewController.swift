@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class FilterOptionsViewController: UIViewController {
+final class FilterOptionsViewController: BaseViewController {
     
     @IBOutlet private weak var filterItemsTableView: UITableView!
     
@@ -47,6 +47,6 @@ final class FilterOptionsViewController: UIViewController {
             .bind(to: filterItemsTableView.rx.items(cellIdentifier: filterItemCellId, cellType: FilterItemCell.self)) {
                 index, filterOption, cell in
                 return cell.setup(withOption: filterOption)
-            }.disposed(by: DisposeBag())
+            }.disposed(by: disposeBag)
     }
 }
