@@ -9,10 +9,6 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-protocol FiltersViewControllerDelegate {
-    func updateFilters(filters: [ArticlesFilterModel])
-}
-
 final class FiltersViewController: BaseViewController {
     
     @IBOutlet private weak var filtersTableView: UITableView!
@@ -20,16 +16,14 @@ final class FiltersViewController: BaseViewController {
     private let filterCommonCellID = String(describing: FilterCommonCell.self)
     
     let viewModel = FiltersViewModel()
-        
-    var delegate: FiltersViewControllerDelegate?
+            
     
+    // MARK: lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
             
-//        setupObservers()
         setupSubviews()
-        
         viewModel.handleViewDidLoad()
     }
     
@@ -43,8 +37,10 @@ final class FiltersViewController: BaseViewController {
         super.willMove(toParent: parent)
         
         guard parent == nil else { return }
-        delegate?.updateFilters(filters: viewModel.filters)
     }
+    
+    
+    // MARK: setup methods
     
     private func setupSubviews() {
         filtersTableView.register(UINib(nibName: filterCommonCellID, bundle: nil), forCellReuseIdentifier: filterCommonCellID)
@@ -79,14 +75,6 @@ final class FiltersViewController: BaseViewController {
     
     private func popToArticles() {
         navigationController?.popViewController(animated: true)
-    }
-}
-
-// MARK: - FilterOptionsDelegate
-
-extension FiltersViewController: FilterOptionsViewControllerDelegate {
-    func updateFilter(_ filter: ArticlesFilterModel) {
-        viewModel.filters.filter {$0.name == filter.name }.first?.options = filter.options
     }
 }
 

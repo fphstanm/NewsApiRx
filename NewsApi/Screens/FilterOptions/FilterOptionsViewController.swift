@@ -9,49 +9,28 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-protocol FilterOptionsViewControllerDelegate {
-    func updateFilter(_ filter: ArticlesFilterModel)
-}
-
 final class FilterOptionsViewController: BaseViewController {
     
     @IBOutlet private weak var filterItemsTableView: UITableView!
     
     private var itemsRx = BehaviorRelay<[ArticlesFilterOption]>(value: [])
     
-    private let filterItemCellId = String(describing: FilterItemCell.self)
+    var viewModel = FilterOptionsViewModel(filterType: .category)
     
-    private var priviousSelectedCellIndex = 0
-    
-    var filter: ArticlesFilterModel?
-
-    var delegate: FilterOptionsViewControllerDelegate?
-    
-    
-    // TODO: make init
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupSubviews()
-//        setupObservers()
-//        itemsRx.accept(filter!.options)
-        title = "Choose a \(filter!.name)"
-    }
-    
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
-        
-        guard parent == nil else { return }
-        delegate?.updateFilter(filter!)
+        title = viewModel.title
     }
     
     func setup(withFiler filter: ArticlesFilterModel) {
-        self.filter = filter
+        viewModel.filter = filter
     }
     
     private func setupSubviews() {
-        filterItemsTableView.register(UINib(nibName: filterItemCellId, bundle: nil), forCellReuseIdentifier: filterItemCellId)
+        filterItemsTableView.register(UINib(nibName: viewModel.filterItemCellId, bundle: nil), forCellReuseIdentifier: viewModel.filterItemCellId)
         filterItemsTableView.tableFooterView = UIView()
         
         filterItemsTableView.delegate = self
@@ -61,7 +40,7 @@ final class FilterOptionsViewController: BaseViewController {
     private func setupObservers() {
         itemsRx
             .asObservable()
-            .bind(to: filterItemsTableView.rx.items(cellIdentifier: filterItemCellId, cellType: FilterItemCell.self)) {
+            .bind(to: filterItemsTableView.rx.items(cellIdentifier: viewModel.filterItemCellId, cellType: FilterItemCell.self)) {
                 index, filterOption, cell in
                 return cell.setup(withOption: filterOption)
             }.disposed(by: disposeBag)
@@ -71,34 +50,19 @@ final class FilterOptionsViewController: BaseViewController {
 
 extension FilterOptionsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filter?.options.count ?? 1
+        return viewModel.filter.options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: filterItemCellId) as? FilterItemCell else { return UITableViewCell() }
-        cell.setup(withOption: filter!.options[indexPath.row])
-        
-        if filter!.options[indexPath.row].isSelected {
-            priviousSelectedCellIndex = indexPath.row
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.filterItemCellId) as? FilterItemCell else { return UITableViewCell() }
+        cell.setup(withOption: viewModel.filter.options[indexPath.row])
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == priviousSelectedCellIndex {
-            filter!.options[indexPath.row].isSelected = !filter!.options[indexPath.row].isSelected
-            if filter!.options[indexPath.row].isSelected {
-                filter!.selectedOption = filter!.options[indexPath.row].name
-            }
-        } else {
-            filter!.options[priviousSelectedCellIndex].isSelected = false
-            filter!.options[indexPath.row].isSelected = true
-            filter!.selectedOption = filter!.options[indexPath.row].name
-            
-            priviousSelectedCellIndex = indexPath.row
-        }
+        viewModel.handleDidSelectItem(withIndex: indexPath.row)
         tableView.reloadData()
     }
 }

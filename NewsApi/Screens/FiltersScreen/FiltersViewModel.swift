@@ -11,13 +11,14 @@ import RxCocoa
 
 final class FiltersViewModel {
     
-    // TODO: Replace publishReley
+    private let filterManager = ArticlesFilterManager.shared
+
     let filtersRx = BehaviorRelay<[ArticlesFilterModel]>(value: [])
     var filters: [ArticlesFilterModel] = []
     
     
     func handleViewDidLoad() {
         self.filtersRx.accept(filters)
-//        self.filters = filters
+        self.filters = filterManager.filters
     }
 }

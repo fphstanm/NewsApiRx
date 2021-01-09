@@ -59,13 +59,6 @@ final class ArticlesViewController: BaseViewController {
             .subscribe(onNext: { [weak self] in
                 self?.showFilters()
             }).disposed(by: disposeBag)
-        
-//        refreshControl
-//            .rx.controlEvent(UIControlEvents.valueChanged)
-//            .subscribe(onNext: { [weak self] in
-//                self?.refreshControl.endRefreshing()
-//            }, onCompleted: nil, onDisposed: nil)
-//            .disposed(by: disposeBag)
     }
     
     // TODO: make refresher rx way
@@ -88,11 +81,5 @@ final class ArticlesViewController: BaseViewController {
         guard let filtersVC = initControllerFromStoryboard(of: FiltersViewController.self) as? FiltersViewController else { return }
         filtersVC.viewModel.filters = viewModel.filters
         navigationController?.pushViewController(filtersVC, animated: true)
-    }
-}
-
-extension ArticlesViewController: FiltersViewControllerDelegate {
-    func updateFilters(filters: [ArticlesFilterModel]) {
-        viewModel.filters = filters
     }
 }

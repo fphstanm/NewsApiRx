@@ -20,6 +20,8 @@
 		17328D1F25A7213800952EA2 /* FilterItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17328D1D25A7213800952EA2 /* FilterItemCell.swift */; };
 		17328D2025A7213800952EA2 /* FilterItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17328D1E25A7213800952EA2 /* FilterItemCell.xib */; };
 		176BA8B125A9C95E003D4DFD /* ArticlesFilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176BA8B025A9C95E003D4DFD /* ArticlesFilterModel.swift */; };
+		176BA8C725A9FF3E003D4DFD /* ArticlesFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176BA8C625A9FF3E003D4DFD /* ArticlesFilterManager.swift */; };
+		176BA8CB25AA03BE003D4DFD /* FilterOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176BA8CA25AA03BE003D4DFD /* FilterOptionsViewModel.swift */; };
 		17842AAF25A6269800D47B1D /* SourcesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17842AAE25A6269800D47B1D /* SourcesModel.swift */; };
 		17842AB925A6449400D47B1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17842AB825A6449400D47B1D /* SceneDelegate.swift */; };
 		17842AC025A646EF00D47B1D /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17842ABE25A646EF00D47B1D /* ArticleCell.swift */; };
@@ -53,6 +55,8 @@
 		17328D1D25A7213800952EA2 /* FilterItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterItemCell.swift; sourceTree = "<group>"; };
 		17328D1E25A7213800952EA2 /* FilterItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterItemCell.xib; sourceTree = "<group>"; };
 		176BA8B025A9C95E003D4DFD /* ArticlesFilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesFilterModel.swift; sourceTree = "<group>"; };
+		176BA8C625A9FF3E003D4DFD /* ArticlesFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesFilterManager.swift; sourceTree = "<group>"; };
+		176BA8CA25AA03BE003D4DFD /* FilterOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionsViewModel.swift; sourceTree = "<group>"; };
 		17842AAE25A6269800D47B1D /* SourcesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesModel.swift; sourceTree = "<group>"; };
 		17842AB825A6449400D47B1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		17842ABE25A646EF00D47B1D /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				17328D1925A7083100952EA2 /* FilterOptionsViewController.swift */,
+				176BA8CA25AA03BE003D4DFD /* FilterOptionsViewModel.swift */,
 				17328D1625A7082300952EA2 /* FilterOptionsViewController.storyboard */,
 			);
 			path = FilterOptions;
@@ -199,6 +204,7 @@
 				179F102B25A341B20068F567 /* Services */,
 				179F104625A348B70068F567 /* Models */,
 				17842AD025A6584300D47B1D /* Extensions */,
+				176BA8C625A9FF3E003D4DFD /* ArticlesFilterManager.swift */,
 				17328CF625A6F03B00952EA2 /* BaseViewModel.swift */,
 				17328CF925A6F04500952EA2 /* BaseViewController.swift */,
 				179F101025A33D0E0068F567 /* AppDelegate.swift */,
@@ -376,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				176BA8C725A9FF3E003D4DFD /* ArticlesFilterManager.swift in Sources */,
 				17842AD225A6586500D47B1D /* UIView.swift in Sources */,
 				179F101525A33D0E0068F567 /* ArticlesViewController.swift in Sources */,
 				17328CF725A6F03B00952EA2 /* BaseViewModel.swift in Sources */,
@@ -393,6 +400,7 @@
 				17842AB925A6449400D47B1D /* SceneDelegate.swift in Sources */,
 				17842AC025A646EF00D47B1D /* ArticleCell.swift in Sources */,
 				17328D1A25A7083100952EA2 /* FilterOptionsViewController.swift in Sources */,
+				176BA8CB25AA03BE003D4DFD /* FilterOptionsViewModel.swift in Sources */,
 				179F101125A33D0E0068F567 /* AppDelegate.swift in Sources */,
 				176BA8B125A9C95E003D4DFD /* ArticlesFilterModel.swift in Sources */,
 				179F102F25A3420B0068F567 /* APIService.swift in Sources */,
