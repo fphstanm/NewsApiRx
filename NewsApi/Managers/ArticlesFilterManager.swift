@@ -9,6 +9,10 @@ import Foundation
 
 public typealias Parameters = [String: Any]
 
+// Country without sources
+// Category without sources
+
+
 class ArticlesFilterManager {
     
     static let shared = ArticlesFilterManager()
@@ -33,8 +37,13 @@ class ArticlesFilterManager {
             ArticlesFilterModel(name: "Category",
                            type: .category,
                            items: [ArticlesFilterItem(name: "Business", id: "business", isSelected: false),
-                                     ArticlesFilterItem(name: "Sport", id: "sport", isSelected: false)],
-                           isActive: false),
+                                   ArticlesFilterItem(name: "Entertainment", id: "entertainment", isSelected: false),
+                                   ArticlesFilterItem(name: "General", id: "general", isSelected: false),
+                                   ArticlesFilterItem(name: "Health", id: "health", isSelected: false),
+                                   ArticlesFilterItem(name: "Science", id: "science", isSelected: false),
+                                   ArticlesFilterItem(name: "Sports", id: "sports", isSelected: false),
+                                   ArticlesFilterItem(name: "Technology", id: "technology", isSelected: false)],
+                           isActive: true),
             ArticlesFilterModel(name: "Sources",
                            type: .sources,
                            items: [],
@@ -53,10 +62,6 @@ class ArticlesFilterManager {
         filters[index].items = items
     }
     
-    func updateFilters(_ filters: [ArticlesFilterModel]) {
-        self.filters = filters
-    }
-    
     // MARK: private methods
     
     private func transformFiltersToRequestParameters(filters: [ArticlesFilterModel]) -> Parameters {
@@ -64,11 +69,11 @@ class ArticlesFilterManager {
         
         filters.forEach { filter in
             if filter.isActive {
-                filter.items.forEach { option in
-                    if option.isSelected {
-                        parameters[filter.type.rawValue] = option.id
-                    }
-                }
+                let ids = filter.items
+                    .filter { $0.isSelected }
+                    .map { $0.id }
+                    .joined(separator: ",")
+                parameters[filter.type.rawValue] = ids
             }
         }
         

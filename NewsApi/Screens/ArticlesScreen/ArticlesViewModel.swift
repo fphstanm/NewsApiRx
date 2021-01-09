@@ -35,9 +35,9 @@ final class ArticlesViewModel: BaseViewModel {
     // MARK: Network
     
     private func getNews(parameters: Parameters? = nil, completion: @escaping (() -> ()) = {}) {
-        let country = parameters?["country"] as? String ?? ""
-        let sources = parameters?["source"] as? [String] ?? []
-        let category = parameters?["category"] as? String ?? ""
+        let country = parameters?["country"] as? String
+        let sources = parameters?["sources"] as? String
+        let category = parameters?["category"] as? String
 
         ApiClient.getTopHeadlines(country: country, category: category, sources: sources)
             .observeOn(MainScheduler.instance)

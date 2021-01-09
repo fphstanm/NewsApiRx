@@ -33,15 +33,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="imf-5b-EII">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75139126712328763" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0rT-h5-MQ7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="E6d-bi-IBi" secondAttribute="trailing" constant="40" id="0uN-1b-93M"/>
+                            <constraint firstAttribute="trailing" secondItem="imf-5b-EII" secondAttribute="trailing" id="6fr-La-Bsw"/>
+                            <constraint firstItem="imf-5b-EII" firstAttribute="leading" secondItem="JXW-7H-iCV" secondAttribute="leading" id="UTb-pW-Vby"/>
                             <constraint firstItem="E6d-bi-IBi" firstAttribute="leading" secondItem="JXW-7H-iCV" secondAttribute="leading" constant="16" id="b5q-xG-zHN"/>
+                            <constraint firstItem="imf-5b-EII" firstAttribute="top" secondItem="JXW-7H-iCV" secondAttribute="top" id="gHl-gk-ePj"/>
                             <constraint firstItem="0rT-h5-MQ7" firstAttribute="centerY" secondItem="JXW-7H-iCV" secondAttribute="centerY" id="m13-2F-Mhk"/>
                             <constraint firstAttribute="trailing" secondItem="0rT-h5-MQ7" secondAttribute="trailing" constant="16" id="r56-pG-W44"/>
                             <constraint firstAttribute="height" priority="999" constant="56" id="taB-4C-NKW"/>
                             <constraint firstItem="E6d-bi-IBi" firstAttribute="centerY" secondItem="JXW-7H-iCV" secondAttribute="centerY" id="vO8-gB-jJf"/>
+                            <constraint firstAttribute="bottom" secondItem="imf-5b-EII" secondAttribute="bottom" id="x4F-qu-qv8"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -56,8 +64,9 @@
             <connections>
                 <outlet property="categoryName" destination="E6d-bi-IBi" id="PGq-pc-Dd3"/>
                 <outlet property="choosenFilter" destination="0rT-h5-MQ7" id="nyQ-Uy-J11"/>
+                <outlet property="foregroundView" destination="imf-5b-EII" id="ARx-aS-JvP"/>
             </connections>
-            <point key="canvasLocation" x="140.57971014492756" y="144.97767857142856"/>
+            <point key="canvasLocation" x="140.57971014492756" y="143.63839285714286"/>
         </tableViewCell>
     </objects>
     <resources>

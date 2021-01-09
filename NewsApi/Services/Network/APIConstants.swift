@@ -10,7 +10,7 @@ import Foundation
 struct APIConstants {
     
     static let baseUrl = "https://newsapi.org/v2/"
-    static let apiKey = "21cacbba225c428583b807fe6a5971c1"
+    static let apiKey = "21f0cdebbaa641908dbf9c735724c9b9" //"21cacbba225c428583b807fe6a5971c1"
     
     //https://newsapi.org/v2/top-headlines?country=ua&apiKey=21cacbba225c428583b807fe6a5971c1
     

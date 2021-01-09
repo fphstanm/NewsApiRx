@@ -15,10 +15,24 @@ final class FiltersViewModel {
 
     let filtersRx = BehaviorRelay<[ArticlesFilterModel]>(value: [])
     var filters: [ArticlesFilterModel] = []
+    var selectedFilters: [ArticlesFilterType] = []
     
     
     func handleViewDidLoad() {
-        self.filtersRx.accept(filters)
-        self.filters = filterManager.filters
+        filtersRx.accept(filters)
+        filters = filterManager.filters
+        selectedFilters = filters.filter { $0.isActive }.map { $0.type }
+    }
+    
+    func handleFilterTapped(ofType type: ArticlesFilterType) {
+        let singleFilterType: ArticlesFilterType = .sources
+        
+        if type == singleFilterType {
+            filters.forEach { $0.isActive = $0.type == singleFilterType }
+        } else {
+            filters.forEach { $0.isActive = $0.type != singleFilterType }
+        }
+        
+        filtersRx.accept(filters)
     }
 }

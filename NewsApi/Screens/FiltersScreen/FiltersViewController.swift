@@ -24,6 +24,7 @@ final class FiltersViewController: BaseViewController {
         super.viewDidLoad()
             
         setupSubviews()
+        setupObservers()
         viewModel.handleViewDidLoad()
     }
     
@@ -46,8 +47,8 @@ final class FiltersViewController: BaseViewController {
         filtersTableView.register(UINib(nibName: filterCommonCellID, bundle: nil), forCellReuseIdentifier: filterCommonCellID)
         filtersTableView.tableFooterView = UIView()
         
-        filtersTableView.delegate = self
-        filtersTableView.dataSource = self
+//        filtersTableView.delegate = self
+//        filtersTableView.dataSource = self
     }
     
     private func setupObservers() {
@@ -60,8 +61,12 @@ final class FiltersViewController: BaseViewController {
         filtersTableView
             .rx
             .modelSelected(ArticlesFilterModel.self)
-            .subscribe(onNext: { filter in
-                self.showFilterOptions(forFilter: filter)
+            .subscribe(onNext: { [weak self] filter in
+                if filter.isActive {
+                    self?.showFilterOptions(forFilter: filter)
+                } else {
+                    self?.viewModel.handleFilterTapped(ofType: filter.type)
+                }
             }).disposed(by: disposeBag)
     }
     
@@ -80,21 +85,21 @@ final class FiltersViewController: BaseViewController {
 
 // MARK: - TableView logic
 
-extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.filters.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: filterCommonCellID) as? FilterCommonCell else {
-            return UITableViewCell()
-        }
-        cell.setup(withFilter: viewModel.filters[indexPath.row])
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showFilterOptions(forFilter: viewModel.filters[indexPath.row])
-    }
-}
+//extension FiltersViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return viewModel.filters.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: filterCommonCellID) as? FilterCommonCell else {
+//            return UITableViewCell()
+//        }
+//        cell.setup(withFilter: viewModel.filters[indexPath.row])
+//
+//        return cell
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        showFilterOptions(forFilter: viewModel.filters[indexPath.row])
+//    }
+//}

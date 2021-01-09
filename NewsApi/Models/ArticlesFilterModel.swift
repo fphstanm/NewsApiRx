@@ -11,7 +11,7 @@ class ArticlesFilterModel {
     let name: String
     let type: ArticlesFilterType
     var items: [ArticlesFilterItem]
-    let isActive: Bool
+    var isActive: Bool
     
     var selectedItems: [String] {
         items

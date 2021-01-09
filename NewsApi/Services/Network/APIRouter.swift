@@ -13,7 +13,7 @@ import Alamofire
 
 enum ApiRouter: URLRequestConvertible {
     
-    case topHeadlines(country: String?, category: String?, sources: [String]?)
+    case topHeadlines(country: String?, category: String?, sources: String?)
     case everything
     case sources
     
@@ -46,7 +46,8 @@ enum ApiRouter: URLRequestConvertible {
         // add apiKey
         completeParameters[APIConstants.Parameters.apiKey] = APIConstants.apiKey
         
-        // TODO: drop parametrs with nil value
+        let urlRequestPrint = try encoding.encode(urlRequest, with: completeParameters)
+        print(" -> -> ", urlRequestPrint.url ?? "")
         
         return try encoding.encode(urlRequest, with: completeParameters)
     }
