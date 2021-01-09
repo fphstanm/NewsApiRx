@@ -33,22 +33,7 @@ final class FilterOptionsViewModel: BaseViewModel {
     // MARK: handlers
     
     func handleViewDidLoad() {
-        switch filter.type {
-        case .sources:
-            isMultipleSelectionEnabled = true
-            
-            if !filter.options.isEmpty {
-                itemsRx.accept(filter.options)
-            } else {
-                getSources() { sources in
-                    let items = self.formSourcesFilterItems(fromSources: sources)
-                    self.filterManager.updateFilterItems(filterOfType: self.filter.type, items: items)
-                    self.itemsRx.accept(items)
-                }
-            }
-        default:
-            itemsRx.accept(filter.options)
-        }
+        configureInitialData()
     }
     
     func handleDidSelectItem(withIndex index: Int) {
@@ -65,6 +50,27 @@ final class FilterOptionsViewModel: BaseViewModel {
             filter.selectedOption = filter.options[index].name
             
             previousSelectedItemIndex = index
+        }
+    }
+    
+    // MARK: private methods
+    
+    private func configureInitialData() {
+        switch filter.type {
+        case .sources:
+            isMultipleSelectionEnabled = true
+            
+            if !filter.options.isEmpty {
+                itemsRx.accept(filter.options)
+            } else {
+                getSources() { sources in
+                    let items = self.formSourcesFilterItems(fromSources: sources)
+                    self.filterManager.updateFilterItems(filterOfType: self.filter.type, items: items)
+                    self.itemsRx.accept(items)
+                }
+            }
+        default:
+            itemsRx.accept(filter.options)
         }
     }
     
