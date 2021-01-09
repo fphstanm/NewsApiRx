@@ -159,6 +159,14 @@
 			path = FilterItemCell;
 			sourceTree = "<group>";
 		};
+		176BA8CD25AA1151003D4DFD /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				176BA8C625A9FF3E003D4DFD /* ArticlesFilterManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		17842AD025A6584300D47B1D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,9 +179,9 @@
 		17842ADA25A6672800D47B1D /* FiltersScreen */ = {
 			isa = PBXGroup;
 			children = (
-				17842AE225A6681900D47B1D /* FiltersViewController.storyboard */,
 				17842AE525A6682400D47B1D /* FiltersViewController.swift */,
 				17328CF325A6EFB800952EA2 /* FiltersViewModel.swift */,
+				17842AE225A6681900D47B1D /* FiltersViewController.storyboard */,
 			);
 			path = FiltersScreen;
 			sourceTree = "<group>";
@@ -202,9 +210,9 @@
 				172E915625A3A3B60038D332 /* Screens */,
 				172E914725A36C5C0038D332 /* CustomViews */,
 				179F102B25A341B20068F567 /* Services */,
+				176BA8CD25AA1151003D4DFD /* Managers */,
 				179F104625A348B70068F567 /* Models */,
 				17842AD025A6584300D47B1D /* Extensions */,
-				176BA8C625A9FF3E003D4DFD /* ArticlesFilterManager.swift */,
 				17328CF625A6F03B00952EA2 /* BaseViewModel.swift */,
 				17328CF925A6F04500952EA2 /* BaseViewController.swift */,
 				179F101025A33D0E0068F567 /* AppDelegate.swift */,
