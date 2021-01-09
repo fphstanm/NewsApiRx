@@ -16,7 +16,6 @@ protocol FiltersViewControllerDelegate {
 final class FiltersViewController: BaseViewController {
     
     @IBOutlet private weak var filtersTableView: UITableView!
-    @IBOutlet private weak var acceptNavigationButton: UIBarButtonItem!
     
     private let filterCommonCellID = String(describing: FilterCommonCell.self)
     
@@ -67,13 +66,6 @@ final class FiltersViewController: BaseViewController {
             .modelSelected(ArticlesFilterModel.self)
             .subscribe(onNext: { filter in
                 self.showFilterOptions(forFilter: filter)
-            }).disposed(by: disposeBag)
-        
-        acceptNavigationButton
-            .rx
-            .tap.subscribe(onNext: { [weak self] in
-                // TODO: Accepted
-                self?.popToArticles()
             }).disposed(by: disposeBag)
     }
     
