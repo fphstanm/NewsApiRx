@@ -13,8 +13,9 @@ class ApiClient {
     
     static func getTopHeadlines(country: String? = nil,
                                 category: String? = nil,
-                                sources: String? = nil) -> Observable<ArticlesModel> {
-        return request(ApiRouter.topHeadlines(country: country, category: category, sources: sources))
+                                sources: String? = nil,
+                                phrase: String?) -> Observable<ArticlesModel> {
+        return request(ApiRouter.topHeadlines(country: country, category: category, sources: sources, phrase: phrase))
     }
     
     static func getSources() -> Observable<SourcesModel> {

@@ -20,6 +20,7 @@ struct APIConstants {
         static let country = "country"
         static let sources = "sources"
         static let category = "category"
+        static let q = "q" //To search a phrase
     }
     
     enum HttpHeaderField: String {

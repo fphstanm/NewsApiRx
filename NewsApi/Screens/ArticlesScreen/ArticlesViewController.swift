@@ -14,6 +14,8 @@ final class ArticlesViewController: BaseViewController {
     @IBOutlet private weak var articlesTableView: UITableView!
     @IBOutlet private weak var filtersNavigationButton: UIBarButtonItem!
     
+    private let searchController = UISearchController()
+    
     private let articleCellID = String(describing: ArticleCell.self)
     
     private lazy var refreshControl = UIRefreshControl()
@@ -38,6 +40,16 @@ final class ArticlesViewController: BaseViewController {
     private func setupSubviews() {
         articlesTableView.register(UINib(nibName: articleCellID, bundle: nil), forCellReuseIdentifier: articleCellID)
         articlesTableView.tableFooterView = UIView()
+        
+//        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        definesPresentationContext = true
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+        } else {
+            articlesTableView.tableHeaderView = searchController.searchBar
+        }
     }
     
     private func setupObservers() {
@@ -66,6 +78,22 @@ final class ArticlesViewController: BaseViewController {
             .subscribe(onNext: { [weak self] in
                 self?.showFilters()
             }).disposed(by: disposeBag)
+        
+        viewModel.searchSubject
+            .asObservable()
+            .filter { !$0.isEmpty }
+            .distinctUntilChanged()
+            .debounce(0.5, scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] phrase in
+                self?.viewModel.handleSearch(phrase: phrase)
+            }).disposed(by: disposeBag)
+        
+        searchController.searchBar
+            .rx
+            .text
+            .orEmpty
+            .bind(to: viewModel.searchObserver)
+            .disposed(by: disposeBag)
     }
     
     // TODO: make refresher rx way
