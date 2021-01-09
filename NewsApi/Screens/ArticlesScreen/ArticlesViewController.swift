@@ -46,12 +46,19 @@ final class ArticlesViewController: BaseViewController {
             .bind(to: articlesTableView.rx.items) {
                 tableView, row, article in
                 
-                // TODO: Replace it with reactive technic
                 let cell = tableView.dequeueReusableCell(withIdentifier: self.articleCellID) as! ArticleCell
                 cell.setup(withArticle: article)
-
+                
                 return cell
             }.disposed(by: disposeBag)
+        
+        articlesTableView
+            .rx
+            .modelSelected(Article.self)
+            .subscribe(onNext: { [weak self] article in
+                guard let urlString = article.url else { return }
+                self?.showArticleWebView(urlString: urlString)
+            }).disposed(by: disposeBag)
         
         filtersNavigationButton
             .rx
@@ -81,5 +88,11 @@ final class ArticlesViewController: BaseViewController {
         guard let filtersVC = initControllerFromStoryboard(of: FiltersViewController.self) as? FiltersViewController else { return }
         filtersVC.viewModel.filters = viewModel.filters
         navigationController?.pushViewController(filtersVC, animated: true)
+    }
+    
+    private func showArticleWebView(urlString: String) {
+        guard let webVC = initControllerFromStoryboard(of: WebViewController.self) as? WebViewController else { return }
+        webVC.urlString = urlString
+        navigationController?.pushViewController(webVC, animated: true)
     }
 }

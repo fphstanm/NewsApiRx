@@ -29,6 +29,8 @@
 		17842AD225A6586500D47B1D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17842AD125A6586500D47B1D /* UIView.swift */; };
 		17842AE325A6681900D47B1D /* FiltersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17842AE225A6681900D47B1D /* FiltersViewController.storyboard */; };
 		17842AE625A6682400D47B1D /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17842AE525A6682400D47B1D /* FiltersViewController.swift */; };
+		1794531925AA500D00F41B97 /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1794531825AA500D00F41B97 /* WebViewController.storyboard */; };
+		1794531C25AA501A00F41B97 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1794531B25AA501A00F41B97 /* WebViewController.swift */; };
 		179F101125A33D0E0068F567 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F101025A33D0E0068F567 /* AppDelegate.swift */; };
 		179F101525A33D0E0068F567 /* ArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179F101425A33D0E0068F567 /* ArticlesViewController.swift */; };
 		179F101825A33D0E0068F567 /* Articles.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 179F101625A33D0E0068F567 /* Articles.storyboard */; };
@@ -64,6 +66,8 @@
 		17842AD125A6586500D47B1D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		17842AE225A6681900D47B1D /* FiltersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FiltersViewController.storyboard; sourceTree = "<group>"; };
 		17842AE525A6682400D47B1D /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
+		1794531825AA500D00F41B97 /* WebViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebViewController.storyboard; sourceTree = "<group>"; };
+		1794531B25AA501A00F41B97 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		179F100D25A33D0E0068F567 /* NewsApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		179F101025A33D0E0068F567 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		179F101425A33D0E0068F567 /* ArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 				172E915525A3A3A60038D332 /* ArticlesScreen */,
 				17842ADA25A6672800D47B1D /* FiltersScreen */,
 				17328D1525A707FF00952EA2 /* FilterOptions */,
+				1794531725AA4FED00F41B97 /* WebViewController */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -184,6 +189,15 @@
 				17842AE225A6681900D47B1D /* FiltersViewController.storyboard */,
 			);
 			path = FiltersScreen;
+			sourceTree = "<group>";
+		};
+		1794531725AA4FED00F41B97 /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1794531B25AA501A00F41B97 /* WebViewController.swift */,
+				1794531825AA500D00F41B97 /* WebViewController.storyboard */,
+			);
+			path = WebViewController;
 			sourceTree = "<group>";
 		};
 		179F100425A33D0E0068F567 = {
@@ -330,6 +344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1794531925AA500D00F41B97 /* WebViewController.storyboard in Resources */,
 				17328D2025A7213800952EA2 /* FilterItemCell.xib in Resources */,
 				179F101D25A33D0F0068F567 /* LaunchScreen.storyboard in Resources */,
 				179F101A25A33D0F0068F567 /* Assets.xcassets in Resources */,
@@ -397,6 +412,7 @@
 				17328D0E25A6FB5C00952EA2 /* UIViewController.swift in Sources */,
 				17842AAF25A6269800D47B1D /* SourcesModel.swift in Sources */,
 				17328CFA25A6F04500952EA2 /* BaseViewController.swift in Sources */,
+				1794531C25AA501A00F41B97 /* WebViewController.swift in Sources */,
 				17842AE625A6682400D47B1D /* FiltersViewController.swift in Sources */,
 				179F103325A342340068F567 /* APIRouter.swift in Sources */,
 				17328D1F25A7213800952EA2 /* FilterItemCell.swift in Sources */,
