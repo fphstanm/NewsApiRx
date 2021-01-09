@@ -70,6 +70,17 @@ final class FilterOptionsViewModel: BaseViewModel {
         }
     }
     
+    private func formSourcesFilterItems(fromSources sources: [Source]) -> [ArticlesFilterItem]{
+        var sourcesItems: [ArticlesFilterItem] = []
+        sources.forEach { source in
+            guard let name = source.name, let id = source.id else { return }
+            let item = ArticlesFilterItem(name: name, id: id, isSelected: false)
+            sourcesItems.append(item)
+        }
+        return sourcesItems
+    }
+
+    
     // MARK: network
     
     private func getSources(completion: @escaping (([Source]) -> ())) {
@@ -84,14 +95,4 @@ final class FilterOptionsViewModel: BaseViewModel {
             }).disposed(by: disposeBag)
     }
     
-    private func formSourcesFilterItems(fromSources sources: [Source]) -> [ArticlesFilterItem]{
-        var sourcesItems: [ArticlesFilterItem] = []
-        sources.forEach { source in
-            guard let name = source.name, let id = source.id else { return }
-            let item = ArticlesFilterItem(name: name, id: id, isSelected: false)
-            sourcesItems.append(item)
-        }
-        return sourcesItems
-    }
-
 }
