@@ -33,6 +33,8 @@ final class FilterOptionsViewController: BaseViewController {
         
         filterItemsTableView.register(UINib(nibName: viewModel.filterItemCellId, bundle: nil), forCellReuseIdentifier: viewModel.filterItemCellId)
         filterItemsTableView.tableFooterView = UIView()
+        
+        setupActivityIndicator()
     }
     
     private func setupObservers() {
@@ -51,6 +53,11 @@ final class FilterOptionsViewController: BaseViewController {
                 strongSelf.viewModel.handleDidSelectItem(withIndex: indexPath.row)
                 strongSelf.filterItemsTableView.reloadData()
             }).disposed(by: disposeBag)
+
+        viewModel.isActivityIndicatorHidden
+            .asObservable()
+            .bind(to: activityIndicator.rx.isHidden)
+            .disposed(by: disposeBag)
     }
     
 }

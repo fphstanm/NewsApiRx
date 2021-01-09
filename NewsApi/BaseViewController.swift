@@ -14,8 +14,16 @@ class BaseViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
+    let activityIndicator = UIActivityIndicatorView(style: .gray)
+    
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
+    func setupActivityIndicator() {
+        activityIndicator.center = self.view.center
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+    }
 }

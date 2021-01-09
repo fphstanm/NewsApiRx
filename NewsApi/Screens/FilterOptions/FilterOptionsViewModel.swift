@@ -20,6 +20,8 @@ final class FilterOptionsViewModel: BaseViewModel {
     
     var isMultipleSelectionEnabled = false
     
+    var isActivityIndicatorHidden = BehaviorRelay<Bool>(value: false)
+    
     var filter: ArticlesFilterModel
     
     lazy var title = "Choose a \(filter.name)"
@@ -86,12 +88,15 @@ final class FilterOptionsViewModel: BaseViewModel {
     private func getSources(completion: @escaping (([Source]) -> ())) {
         ApiClient.getSources()
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { sourcesModel in
+            .subscribe(onNext: { [weak self] sourcesModel in
                 guard let sources = sourcesModel.sources
                 else { return }
                 completion(sources)
+                self?.isActivityIndicatorHidden.accept(false)
             }, onError: { error in
                 print("Error: ", error)
+            },onCompleted: { [weak self] in
+                self?.isActivityIndicatorHidden.accept(true)
             }).disposed(by: disposeBag)
     }
     
