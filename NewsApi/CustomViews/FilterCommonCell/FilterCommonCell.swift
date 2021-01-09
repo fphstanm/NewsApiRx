@@ -19,7 +19,7 @@ final class FilterCommonCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setup(withFilter filter: ArticlesFilter) {
+    func setup(withFilter filter: ArticlesFilterModel) {
         categoryName.text = filter.name
         choosenFilter.text = filter.selectedOption ?? filter.defaultOption
     }

@@ -11,11 +11,11 @@ import RxSwift
 
 class ApiClient {
     
-    static func getTopHeadlines(country: String? = nil, category: String? = nil, sources: [String]? = nil) -> Observable<News> {
+    static func getTopHeadlines(country: String? = nil, category: String? = nil, sources: [String]? = nil) -> Observable<ArticlesModel> {
         return request(ApiRouter.topHeadlines(country: country, category: category, sources: sources))
     }
     
-    static func getSources() -> Observable<Sources> {
+    static func getSources() -> Observable<SourcesModel> {
         return request(ApiRouter.sources)
     }
     

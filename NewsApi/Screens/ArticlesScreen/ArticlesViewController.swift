@@ -86,6 +86,13 @@ final class ArticlesViewController: BaseViewController {
     
     private func showFilters() {
         guard let filtersVC = initControllerFromStoryboard(of: FiltersViewController.self) as? FiltersViewController else { return }
+        filtersVC.viewModel.filters = viewModel.filters
         navigationController?.pushViewController(filtersVC, animated: true)
+    }
+}
+
+extension ArticlesViewController: FiltersViewControllerDelegate {
+    func updateFilters(filters: [ArticlesFilterModel]) {
+        viewModel.filters = filters
     }
 }
