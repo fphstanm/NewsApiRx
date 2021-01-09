@@ -11,7 +11,9 @@ import RxSwift
 
 class ApiClient {
     
-    static func getTopHeadlines(country: String? = nil, category: String? = nil, sources: [String]? = nil) -> Observable<ArticlesModel> {
+    static func getTopHeadlines(country: String? = nil,
+                                category: String? = nil,
+                                sources: [String]? = nil) -> Observable<ArticlesModel> {
         return request(ApiRouter.topHeadlines(country: country, category: category, sources: sources))
     }
     
