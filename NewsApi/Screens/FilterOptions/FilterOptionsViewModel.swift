@@ -11,11 +11,12 @@ import RxCocoa
 
 final class FilterOptionsViewModel: BaseViewModel {
     private let filterManager = ArticlesFilterManager.shared
-    private lazy var previousSelectedItemIndex: Int = filter.options.firstIndex { $0.isSelected == true } ?? 0
+    
+    private lazy var previousSelectedItemIndex: Int = filter.items.firstIndex { $0.isSelected == true } ?? 0
     
     let filterItemCellId = String(describing: FilterItemCell.self)
     
-    let itemsRx = BehaviorRelay<[ArticlesFilterOption]>(value: [])
+    let itemsRx = BehaviorRelay<[ArticlesFilterItem]>(value: [])
     
     var isMultipleSelectionEnabled = false
     
@@ -38,16 +39,16 @@ final class FilterOptionsViewModel: BaseViewModel {
     
     func handleDidSelectItem(withIndex index: Int) {
         if index == previousSelectedItemIndex {
-            filter.options[index].isSelected = !filter.options[index].isSelected
-            if filter.options[index].isSelected {
-                filter.selectedOption = filter.options[index].name
-            }
+            filter.items[index].isSelected = !filter.items[index].isSelected
+//            if filter.options[index].isSelected {
+//                filter.selectedOption = filter.options[index].name
+//            }
         } else {
             if !isMultipleSelectionEnabled {
-                filter.options[previousSelectedItemIndex].isSelected = false
+                filter.items[previousSelectedItemIndex].isSelected = false
             }
-            filter.options[index].isSelected = true
-            filter.selectedOption = filter.options[index].name
+            filter.items[index].isSelected = true
+//            filter.selectedOption = filter.options[index].name
             
             previousSelectedItemIndex = index
         }
@@ -60,8 +61,8 @@ final class FilterOptionsViewModel: BaseViewModel {
         case .sources:
             isMultipleSelectionEnabled = true
             
-            if !filter.options.isEmpty {
-                itemsRx.accept(filter.options)
+            if !filter.items.isEmpty {
+                itemsRx.accept(filter.items)
             } else {
                 getSources() { sources in
                     let items = self.formSourcesFilterItems(fromSources: sources)
@@ -70,7 +71,7 @@ final class FilterOptionsViewModel: BaseViewModel {
                 }
             }
         default:
-            itemsRx.accept(filter.options)
+            itemsRx.accept(filter.items)
         }
     }
     
@@ -88,11 +89,11 @@ final class FilterOptionsViewModel: BaseViewModel {
             }).disposed(by: disposeBag)
     }
     
-    private func formSourcesFilterItems(fromSources sources: [Source]) -> [ArticlesFilterOption]{
-        var sourcesItems: [ArticlesFilterOption] = []
+    private func formSourcesFilterItems(fromSources sources: [Source]) -> [ArticlesFilterItem]{
+        var sourcesItems: [ArticlesFilterItem] = []
         sources.forEach { source in
             guard let name = source.name, let id = source.id else { return }
-            let item = ArticlesFilterOption(name: name, id: id, isSelected: false)
+            let item = ArticlesFilterItem(name: name, id: id, isSelected: false)
             sourcesItems.append(item)
         }
         return sourcesItems

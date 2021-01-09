@@ -23,24 +23,21 @@ class ArticlesFilterManager {
     
     private init() {
         filters = [
-            ArticlesFilterModel(name: "Coutry",
+            ArticlesFilterModel(name: "Country",
                            type: .country,
-                           defaultOption: "Select country",
-                           options: [ArticlesFilterOption(name: "Ukraine", id: "ua", isSelected: true),
-                                     ArticlesFilterOption(name: "USA", id: "us", isSelected: false),
-                                     ArticlesFilterOption(name: "Russia", id: "ru", isSelected: false),
-                                     ArticlesFilterOption(name: "France", id: "fr", isSelected: false)],
+                           items: [ArticlesFilterItem(name: "Ukraine", id: "ua", isSelected: true),
+                                     ArticlesFilterItem(name: "USA", id: "us", isSelected: false),
+                                     ArticlesFilterItem(name: "Russia", id: "ru", isSelected: false),
+                                     ArticlesFilterItem(name: "France", id: "fr", isSelected: false)],
                            isActive: true),
             ArticlesFilterModel(name: "Category",
                            type: .category,
-                           defaultOption: "Select category",
-                           options: [ArticlesFilterOption(name: "Business", id: "business", isSelected: false),
-                                     ArticlesFilterOption(name: "Sport", id: "sport", isSelected: false)],
+                           items: [ArticlesFilterItem(name: "Business", id: "business", isSelected: false),
+                                     ArticlesFilterItem(name: "Sport", id: "sport", isSelected: false)],
                            isActive: false),
             ArticlesFilterModel(name: "Sources",
                            type: .sources,
-                           defaultOption: "Select sources",
-                           options: [],
+                           items: [],
                            isActive: false)
         ]
     }
@@ -51,9 +48,9 @@ class ArticlesFilterManager {
         return filters.filter { $0.type == type }.first!
     }
     
-    func updateFilterItems(filterOfType type: ArticlesFilterType, items: [ArticlesFilterOption]) {
+    func updateFilterItems(filterOfType type: ArticlesFilterType, items: [ArticlesFilterItem]) {
         guard let index = (filters.firstIndex { $0.type == type }) else { return }
-        filters[index].options = items
+        filters[index].items = items
     }
     
     func updateFilters(_ filters: [ArticlesFilterModel]) {
@@ -67,7 +64,7 @@ class ArticlesFilterManager {
         
         filters.forEach { filter in
             if filter.isActive {
-                filter.options.forEach { option in
+                filter.items.forEach { option in
                     if option.isSelected {
                         parameters[filter.type.rawValue] = option.id
                     }

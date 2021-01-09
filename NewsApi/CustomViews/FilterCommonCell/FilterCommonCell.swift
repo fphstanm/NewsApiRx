@@ -21,6 +21,6 @@ final class FilterCommonCell: UITableViewCell {
     
     func setup(withFilter filter: ArticlesFilterModel) {
         categoryName.text = filter.name
-        choosenFilter.text = filter.selectedOption ?? filter.defaultOption
+        choosenFilter.text = filter.selectedItems.joined(separator: ", ")
     }
 }

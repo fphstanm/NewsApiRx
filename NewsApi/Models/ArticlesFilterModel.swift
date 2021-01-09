@@ -10,28 +10,27 @@ import Foundation
 class ArticlesFilterModel {
     let name: String
     let type: ArticlesFilterType
-    let defaultOption: String
-    var options: [ArticlesFilterOption]
+    var items: [ArticlesFilterItem]
     let isActive: Bool
     
-    lazy var selectedOption: String? = {
-        options.filter { $0.isSelected }.first?.name
-    }()
+    var selectedItems: [String] {
+        items
+            .filter { $0.isSelected }
+            .map { $0.name }
+    }
     
     init(name: String,
          type: ArticlesFilterType,
-         defaultOption: String,
-         options: [ArticlesFilterOption],
+         items: [ArticlesFilterItem],
          isActive: Bool) {
         self.name = name
         self.type = type
-        self.defaultOption = defaultOption
-        self.options = options
+        self.items = items
         self.isActive = isActive
     }
 }
 
-class ArticlesFilterOption {
+class ArticlesFilterItem {
     let name: String
     let id: String
     var isSelected: Bool
