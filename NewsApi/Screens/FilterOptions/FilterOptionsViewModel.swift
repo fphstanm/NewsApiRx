@@ -40,16 +40,11 @@ final class FilterOptionsViewModel: BaseViewModel {
     func handleDidSelectItem(withIndex index: Int) {
         if index == previousSelectedItemIndex {
             filter.items[index].isSelected = !filter.items[index].isSelected
-//            if filter.options[index].isSelected {
-//                filter.selectedOption = filter.options[index].name
-//            }
         } else {
             if !isMultipleSelectionEnabled {
                 filter.items[previousSelectedItemIndex].isSelected = false
             }
-            filter.items[index].isSelected = true
-//            filter.selectedOption = filter.options[index].name
-            
+            filter.items[index].isSelected = !filter.items[index].isSelected
             previousSelectedItemIndex = index
         }
     }
