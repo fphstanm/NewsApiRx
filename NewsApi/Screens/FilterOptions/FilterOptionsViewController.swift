@@ -13,16 +13,15 @@ final class FilterOptionsViewController: BaseViewController {
     
     @IBOutlet private weak var filterItemsTableView: UITableView!
     
-    private var itemsRx = BehaviorRelay<[ArticlesFilterOption]>(value: [])
-    
     var viewModel = FilterOptionsViewModel(filterType: .category)
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupObservers()
         setupSubviews()
-        title = viewModel.title
+        viewModel.handleViewDidLoad()
     }
     
     func setup(withFiler filter: ArticlesFilterModel) {
@@ -30,39 +29,28 @@ final class FilterOptionsViewController: BaseViewController {
     }
     
     private func setupSubviews() {
+        title = viewModel.title
+        
         filterItemsTableView.register(UINib(nibName: viewModel.filterItemCellId, bundle: nil), forCellReuseIdentifier: viewModel.filterItemCellId)
         filterItemsTableView.tableFooterView = UIView()
-        
-        filterItemsTableView.delegate = self
-        filterItemsTableView.dataSource = self
     }
     
     private func setupObservers() {
-        itemsRx
+        viewModel.itemsRx
             .asObservable()
             .bind(to: filterItemsTableView.rx.items(cellIdentifier: viewModel.filterItemCellId, cellType: FilterItemCell.self)) {
                 index, filterOption, cell in
                 return cell.setup(withOption: filterOption)
             }.disposed(by: disposeBag)
-    }
-    
-}
-
-extension FilterOptionsViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.filter.options.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.filterItemCellId) as? FilterItemCell else { return UITableViewCell() }
-        cell.setup(withOption: viewModel.filter.options[indexPath.row])
         
-        return cell
+        filterItemsTableView
+            .rx
+            .itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let strongSelf = self else { return }
+                strongSelf.viewModel.handleDidSelectItem(withIndex: indexPath.row)
+                strongSelf.filterItemsTableView.reloadData()
+            }).disposed(by: disposeBag)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        viewModel.handleDidSelectItem(withIndex: indexPath.row)
-        tableView.reloadData()
-    }
 }

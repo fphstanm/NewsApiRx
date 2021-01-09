@@ -36,11 +36,11 @@ class ArticlesFilterManager {
                            defaultOption: "Select category",
                            options: [ArticlesFilterOption(name: "Business", id: "business", isSelected: false),
                                      ArticlesFilterOption(name: "Sport", id: "sport", isSelected: false)],
-                           isActive: true),
+                           isActive: false),
             ArticlesFilterModel(name: "Sources",
                            type: .sources,
                            defaultOption: "Select sources",
-                           options: [ArticlesFilterOption(name: "Source", id: "sourceID", isSelected: false)],
+                           options: [],
                            isActive: false)
         ]
     }
@@ -49,6 +49,11 @@ class ArticlesFilterManager {
     
     func getFilter(ofType type: ArticlesFilterType) -> ArticlesFilterModel {
         return filters.filter { $0.type == type }.first!
+    }
+    
+    func updateFilterItems(filterOfType type: ArticlesFilterType, items: [ArticlesFilterOption]) {
+        guard let index = (filters.firstIndex { $0.type == type }) else { return }
+        filters[index].options = items
     }
     
     func updateFilters(_ filters: [ArticlesFilterModel]) {

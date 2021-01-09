@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Uls-dB-brL">
-                                <rect key="frame" x="0.0" y="128" width="414" height="734"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -27,8 +27,8 @@
                         <constraints>
                             <constraint firstItem="Uls-dB-brL" firstAttribute="leading" secondItem="GQ2-uX-mdI" secondAttribute="leading" id="JXj-bb-wUh"/>
                             <constraint firstItem="Uls-dB-brL" firstAttribute="trailing" secondItem="GQ2-uX-mdI" secondAttribute="trailing" id="Q6M-VS-VOD"/>
-                            <constraint firstItem="Uls-dB-brL" firstAttribute="bottom" secondItem="GQ2-uX-mdI" secondAttribute="bottom" id="fMN-oJ-XV4"/>
-                            <constraint firstItem="Uls-dB-brL" firstAttribute="top" secondItem="GQ2-uX-mdI" secondAttribute="top" constant="40" id="rao-Tb-va2"/>
+                            <constraint firstItem="Uls-dB-brL" firstAttribute="bottom" secondItem="Dr9-md-Mbg" secondAttribute="bottom" id="fMN-oJ-XV4"/>
+                            <constraint firstItem="Uls-dB-brL" firstAttribute="top" secondItem="GQ2-uX-mdI" secondAttribute="top" id="rao-Tb-va2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Filters" id="vOV-Em-K7T"/>
