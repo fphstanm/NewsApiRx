@@ -14,11 +14,11 @@ final class ArticlesViewController: BaseViewController {
     @IBOutlet private weak var articlesTableView: UITableView!
     @IBOutlet private weak var filtersNavigationButton: UIBarButtonItem!
     
+    private let refreshControl = UIRefreshControl()
+    
     private let searchController = UISearchController()
     
     private let articleCellID = String(describing: ArticleCell.self)
-    
-    private lazy var refreshControl = UIRefreshControl()
         
     private let viewModel = ArticlesViewModel()
     
@@ -29,19 +29,18 @@ final class ArticlesViewController: BaseViewController {
         super.viewDidLoad()
                 
         setupSubviews()
-        setupObservers()
-        setupRefreshControl()
+        setupBindings()
         
         viewModel.handleViewDidLoad()
     }
     
-    // MARK: - setup
+    // MARK: - setup methods
     
     private func setupSubviews() {
         articlesTableView.register(UINib(nibName: articleCellID, bundle: nil), forCellReuseIdentifier: articleCellID)
         articlesTableView.tableFooterView = UIView()
+        articlesTableView.refreshControl = refreshControl
         
-//        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         definesPresentationContext = true
@@ -52,15 +51,15 @@ final class ArticlesViewController: BaseViewController {
         }
     }
     
-    private func setupObservers() {
-        viewModel.articles
+    private func setupBindings() {
+        
+        // == articlesTableView ==
+        
+        viewModel.state.articles
             .asObservable()
-            .bind(to: articlesTableView.rx.items) {
-                tableView, row, article in
-                
+            .bind(to: articlesTableView.rx.items) { tableView, row, article in
                 let cell = tableView.dequeueReusableCell(withIdentifier: self.articleCellID) as! ArticleCell
                 cell.setup(withArticle: article)
-                
                 return cell
             }.disposed(by: disposeBag)
         
@@ -72,6 +71,8 @@ final class ArticlesViewController: BaseViewController {
                 self?.showArticleWebView(urlString: urlString)
             }).disposed(by: disposeBag)
         
+        // == navigationButtons ==
+        
         filtersNavigationButton
             .rx
             .tap
@@ -79,7 +80,9 @@ final class ArticlesViewController: BaseViewController {
                 self?.showFilters()
             }).disposed(by: disposeBag)
         
-        viewModel.searchSubject
+        // == searchController ==
+        
+        viewModel.state.searchText
             .asObservable()
             .filter { !$0.isEmpty }
             .distinctUntilChanged()
@@ -92,29 +95,39 @@ final class ArticlesViewController: BaseViewController {
             .rx
             .text
             .orEmpty
-            .bind(to: viewModel.searchObserver)
+            .bind(to: viewModel.state.searchObserver)
             .disposed(by: disposeBag)
+        
+        searchController.searchBar
+            .rx
+            .cancelButtonClicked
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.handleRefreshArticles()
+            }).disposed(by: disposeBag)
+        
+        // == refreshControl ==
+        
+        viewModel.state.isFetching
+            .asObservable()
+            .subscribe(onNext: { [weak self] isFetching in
+                if !isFetching {
+                    self?.refreshControl.endRefreshing()
+                }
+            }).disposed(by: disposeBag)
+        
+        refreshControl
+            .rx
+            .controlEvent(.valueChanged)
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.handleRefreshArticles()
+            }).disposed(by: disposeBag)
     }
     
-    // TODO: make refresher rx way
-    // MARK: RefreshControl
-    private func setupRefreshControl() {
-        refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        articlesTableView.refreshControl = refreshControl
-    }
-    
-    @objc private func refreshData(_ sender: UIRefreshControl) {
-        viewModel.handleRefreshArticles() {
-            sender.endRefreshing()
-        }
-    }
-    
-    // MARK: navigation
+    // MARK: - navigation
     
     private func showFilters() {
         guard let filtersVC = initControllerFromStoryboard(of: FiltersViewController.self) as? FiltersViewController else { return }
-        filtersVC.viewModel.filters = viewModel.filters
+        filtersVC.viewModel.filters = viewModel.params.filters
         navigationController?.pushViewController(filtersVC, animated: true)
     }
     
