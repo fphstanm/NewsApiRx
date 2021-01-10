@@ -18,13 +18,13 @@ final class FiltersViewController: BaseViewController {
     let viewModel = FiltersViewModel()
             
     
-    // MARK: lifecycle
+    // MARK: - lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
             
         setupSubviews()
-        setupObservers()
+        setupBindings()
         viewModel.handleViewDidLoad()
     }
     
@@ -34,22 +34,15 @@ final class FiltersViewController: BaseViewController {
         filtersTableView.reloadData()
     }
     
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
-        
-        guard parent == nil else { return }
-    }
-    
-    
-    // MARK: setup methods
+    // MARK: - setup methods
     
     private func setupSubviews() {
         filtersTableView.register(UINib(nibName: filterCommonCellID, bundle: nil), forCellReuseIdentifier: filterCommonCellID)
         filtersTableView.tableFooterView = UIView()
     }
     
-    private func setupObservers() {
-        viewModel.filtersRx
+    private func setupBindings() {
+        viewModel.state.filters
             .asObservable()
             .bind(to: filtersTableView.rx.items(cellIdentifier: filterCommonCellID, cellType: FilterCommonCell.self)) { index, filter, cell in
                 return cell.setup(withFilter: filter)
@@ -67,7 +60,7 @@ final class FiltersViewController: BaseViewController {
             }).disposed(by: disposeBag)
     }
     
-    // MARK: navigation
+    // MARK: - navigation
     
     private func showFilterOptions(forFilter filter: ArticlesFilterModel) {
         guard let filterOptionsVC = navigationController?.initControllerFromStoryboard(of: FilterOptionsViewController.self) as? FilterOptionsViewController else { return }
