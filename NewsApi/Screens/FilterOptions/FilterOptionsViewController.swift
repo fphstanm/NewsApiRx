@@ -19,8 +19,9 @@ final class FilterOptionsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupObservers()
         setupSubviews()
+        setupObservers()
+        
         viewModel.handleViewDidLoad()
     }
     

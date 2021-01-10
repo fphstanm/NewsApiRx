@@ -23,13 +23,12 @@ class WebViewController: UIViewController {
         webView.allowsBackForwardNavigationGestures = true
     }
     
+}
+
+extension WebViewController: WKNavigationDelegate {
     override func loadView() {
         webView = WKWebView()
         webView.navigationDelegate = self
         view = webView
     }
-}
-
-extension WebViewController: WKNavigationDelegate {
-    
 }

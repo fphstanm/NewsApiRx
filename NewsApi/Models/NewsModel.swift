@@ -9,7 +9,7 @@ import Foundation
 
 class ArticlesModel: Codable {
     var status: String?
-    var totalResult: Int?
+    var totalResults: Int?
     var articles: [Article]?
 }
 

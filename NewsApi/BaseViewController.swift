@@ -24,6 +24,7 @@ class BaseViewController: UIViewController {
     func setupActivityIndicator() {
         activityIndicator.center = self.view.center
         activityIndicator.startAnimating()
+        activityIndicator.isHidden = true
         view.addSubview(activityIndicator)
     }
 }
