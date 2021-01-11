@@ -30,6 +30,8 @@ class ApiClient {
                     observer.onNext(value)
                     observer.onCompleted()
                 case .failure(let error):
+                    
+                    // TODO: Make NeswApi error parsing
                     switch response.response?.statusCode {
                     case 403:
                         observer.onError(ApiError.forbidden)
