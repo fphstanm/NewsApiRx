@@ -85,6 +85,8 @@ final class FilterOptionsViewModel: BaseViewModel {
     
     // MARK: network
     
+    // TODO: completion should be changed to Rx way
+    
     private func getSources(completion: @escaping (([Source]) -> ())) {
         
         isActivityIndicatorHidden.accept(false)

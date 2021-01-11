@@ -47,6 +47,8 @@ final class ArticlesViewModel: BaseViewModel {
     // MARK: - Network
     
     private func getNews(parameters: Parameters? = nil, phrase: String? = nil) {
+        
+        // TODO: Should be removed
         let country = parameters?["country"] as? String
         let sources = parameters?["sources"] as? String
         let category = parameters?["category"] as? String
