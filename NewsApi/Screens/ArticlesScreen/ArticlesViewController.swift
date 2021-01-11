@@ -30,8 +30,12 @@ final class ArticlesViewController: BaseViewController {
                 
         setupSubviews()
         setupBindings()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        viewModel.handleViewDidLoad()
+        viewModel.handleViewWillAppear()
     }
     
     // MARK: - setup methods

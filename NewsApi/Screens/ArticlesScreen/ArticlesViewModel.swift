@@ -31,7 +31,7 @@ final class ArticlesViewModel: BaseViewModel {
     
     // MARK: - Handlers
     
-    func handleViewDidLoad() {
+    func handleViewWillAppear() {
         getNews(parameters: filterManager.parameters)
     }
     
