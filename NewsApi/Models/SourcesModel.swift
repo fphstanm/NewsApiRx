@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Sources: Codable {
+class SourcesModel: Codable {
     var sources: [Source]?
 }
 

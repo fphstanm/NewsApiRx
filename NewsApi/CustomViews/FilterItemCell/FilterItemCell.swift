@@ -12,10 +12,10 @@ class FilterItemCell: UITableViewCell {
     @IBOutlet private weak var name: UILabel!
     @IBOutlet private weak var selectedStateImage: UIImageView!
     
-    var option: ArticlesFilterOption?
+    var option: ArticlesFilterItem?
     
     
-    func setup(withOption option: ArticlesFilterOption) {
+    func setup(withOption option: ArticlesFilterItem) {
         self.option = option
         name.text = option.name
         selectedStateImage.isHidden = !option.isSelected

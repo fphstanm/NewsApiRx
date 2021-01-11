@@ -9,57 +9,35 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct ArticlesFilter {
-    let name: String
-    let type: ArticlesFilterType
-    let selectedOption: String?
-    let defaultOption: String
-    let options: [ArticlesFilterOption]
-    let isActive: Bool
-}
-
-struct ArticlesFilterOption {
-    let name: String
-    let id: String
-    var isSelected: Bool
-}
-
-enum ArticlesFilterType: String {
-    case country = "country"
-    case category = "category"
-    case sources = "sources"
+final class FiltersViewModelState {
+    let filters = BehaviorRelay<[ArticlesFilterModel]>(value: [])
 }
 
 final class FiltersViewModel {
     
-    // TODO: Replace publishReley
-    let filters = BehaviorRelay<[ArticlesFilter]>(value: [])
+    private let filterManager = ArticlesFilterManager.shared
     
+    private var bufferFilters: [ArticlesFilterModel] = []
+    
+    let state = FiltersViewModelState()
+    
+    
+    // MARK: - handlers
     
     func handleViewDidLoad() {
-        let filters = [
-            ArticlesFilter(name: "Coutry",
-                           type: .country,
-                           selectedOption: nil,
-                           defaultOption: "Select country",
-                           options: [ArticlesFilterOption(name: "Ukraine", id: "ua", isSelected: false),
-                                     ArticlesFilterOption(name: "USA", id: "us", isSelected: false)],
-                           isActive: false),
-            ArticlesFilter(name: "Category",
-                           type: .category,
-                           selectedOption: nil,
-                           defaultOption: "Select category",
-                           options: [ArticlesFilterOption(name: "Business", id: "business", isSelected: false),
-                                     ArticlesFilterOption(name: "Sport", id: "sport", isSelected: false)],
-                           isActive: false),
-            ArticlesFilter(name: "Sources",
-                           type: .sources,
-                           selectedOption: nil,
-                           defaultOption: "Select sources",
-                           options: [ArticlesFilterOption(name: "Source", id: "sourceID", isSelected: false)],
-                           isActive: false)
-        ]
+        bufferFilters = filterManager.filters
+        state.filters.accept(bufferFilters)
+    }
+    
+    func handleFilterTapped(ofType type: ArticlesFilterType) {
+        let singleFilterType: ArticlesFilterType = .sources
         
-        self.filters.accept(filters)
+        if type == singleFilterType {
+            bufferFilters.forEach { $0.isActive = $0.type == singleFilterType }
+        } else {
+            bufferFilters.forEach { $0.isActive = $0.type != singleFilterType }
+        }
+        
+        state.filters.accept(bufferFilters)
     }
 }

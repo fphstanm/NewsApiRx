@@ -13,14 +13,8 @@ final class FilterOptionsViewController: BaseViewController {
     
     @IBOutlet private weak var filterItemsTableView: UITableView!
     
-    var filter: ArticlesFilter?
+    var viewModel = FilterOptionsViewModel(filterType: .category)
     
-    private var items = BehaviorRelay<[ArticlesFilterOption]>(value: [])
-    
-    private let filterItemCellId = String(describing: FilterItemCell.self)
-
-    
-    // TODO: make init
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,25 +22,43 @@ final class FilterOptionsViewController: BaseViewController {
         setupSubviews()
         setupObservers()
         
-        items.accept(filter!.options)
-        title = "Choose a \(filter!.name)"
+        viewModel.handleViewDidLoad()
     }
     
-    func setup(withFiler filter: ArticlesFilter) {
-        self.filter = filter
+    func setup(withFiler filter: ArticlesFilterModel) {
+        viewModel.filter = filter
     }
     
     private func setupSubviews() {
-        filterItemsTableView.register(UINib(nibName: filterItemCellId, bundle: nil), forCellReuseIdentifier: filterItemCellId)
+        title = viewModel.title
+        
+        filterItemsTableView.register(UINib(nibName: viewModel.filterItemCellId, bundle: nil), forCellReuseIdentifier: viewModel.filterItemCellId)
         filterItemsTableView.tableFooterView = UIView()
+        
+        setupActivityIndicator()
     }
     
     private func setupObservers() {
-        items
+        viewModel.itemsRx
             .asObservable()
-            .bind(to: filterItemsTableView.rx.items(cellIdentifier: filterItemCellId, cellType: FilterItemCell.self)) {
+            .bind(to: filterItemsTableView.rx.items(cellIdentifier: viewModel.filterItemCellId, cellType: FilterItemCell.self)) {
                 index, filterOption, cell in
                 return cell.setup(withOption: filterOption)
             }.disposed(by: disposeBag)
+        
+        filterItemsTableView
+            .rx
+            .itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let strongSelf = self else { return }
+                strongSelf.viewModel.handleDidSelectItem(withIndex: indexPath.row)
+                strongSelf.filterItemsTableView.reloadData()
+            }).disposed(by: disposeBag)
+
+        viewModel.isActivityIndicatorHidden
+            .asObservable()
+            .bind(to: activityIndicator.rx.isHidden)
+            .disposed(by: disposeBag)
     }
+    
 }
